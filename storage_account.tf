@@ -12,13 +12,10 @@ resource "azurerm_storage_account" "recording" {
 
   tags = var.storage.tags
 }
-output "containers" {
-  value = var.storage.containers
-}
 
 resource "azurerm_storage_container" "containers" {
   for_each = var.storage.containers != null ? var.storage.containers : {}
-  name                  = lower(each.value.name)
+  name                  = lower(each.key)
   storage_account_id    = azurerm_storage_account.recording.id
   container_access_type = "private"
 }
