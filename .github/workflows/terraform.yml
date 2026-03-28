@@ -26,4 +26,4 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
 
       - run: terraform init
-      - run: terraform plan -var-file="terraform.tfvars"
+      - run: terraform plan -var-file="dev.tfvars"
