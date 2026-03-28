@@ -10,7 +10,7 @@ variable "storage" {
     account_replication_type = optional(string)
     tags                     = optional(map(string))
     containers               = optional(map(object({
-      name = string
+      details = optional(string)
     })))
   })
   default = {

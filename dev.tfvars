@@ -1,23 +1,20 @@
 storage = {
-  name = "thisisaverylongstorageaccountnamethatexceeds24chars"
+  name = "bobcontruyeexample"
   resource_group = {
     name     = "example-resources"
-    location = "North Europe"
+    location = "East Us"
   }
   account_tier             = "Standard"
   account_replication_type = "LRS"
-  containers = {
-    "godfather" = {
-      
-    }
-    "starwars" = {
-      
-    }
-    "matrix" = {
-      
-    }
-  }
   tags = {
     environment = "dev"
+  }
+  containers = {
+    movies = {
+      
+    }
+    logs = {
+      
+    }
   }
 }
