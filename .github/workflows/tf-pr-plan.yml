@@ -12,7 +12,8 @@ permissions:
 jobs:
   plan:
     runs-on: ubuntu-latest
-    environment: dev
+    environment: dev  # Siempre previsualiza con un entorno tipo dev
+        
     env:
       TF_ENV: dev  # Always preview with dev-like environment
 
