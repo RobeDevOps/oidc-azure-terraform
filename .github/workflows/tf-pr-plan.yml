@@ -5,15 +5,27 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write   # 🔥 necesario para OIDC
+  contents: read
+  pull-requests: write
+  issues: write
+
 jobs:
   plan:
     runs-on: ubuntu-latest
+    environment: dev  # Siempre previsualiza con un entorno tipo dev
 
     env:
       TF_ENV: dev  # Always preview with dev-like environment
 
     steps:
       - uses: actions/checkout@v3
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - uses: hashicorp/setup-terraform@v3
 
@@ -23,15 +35,5 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -var-file="vars/${{ env.TF_ENV }}.tfvars" -out=tfplan
 
-      - name: Comment Plan in PR
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const plan = fs.readFileSync('tfplan', 'utf8');
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `## Terraform Plan (Environment: ${process.env.TF_ENV}) 🚀\n\`\`\`hcl\n${plan}\n\`\`\``
-            });
+      - name: Convert Plan to Text
+        run: terraform show -no-color tfplan
