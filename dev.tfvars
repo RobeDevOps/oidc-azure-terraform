@@ -11,10 +11,10 @@ storage = {
   }
   containers = {
     movies = {
-      
+
     }
     logs = {
-      
+
     }
   }
 }

@@ -9,7 +9,7 @@ variable "storage" {
     account_tier             = optional(string)
     account_replication_type = optional(string)
     tags                     = optional(map(string))
-    containers               = optional(map(object({
+    containers = optional(map(object({
       details = optional(string)
     })))
   })
@@ -24,7 +24,7 @@ variable "storage" {
     tags = {
       environment = "dev"
     }
-    containers = {   }
+    containers = {}
   }
 
   validation {

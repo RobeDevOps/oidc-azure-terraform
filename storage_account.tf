@@ -14,7 +14,7 @@ resource "azurerm_storage_account" "recording" {
 }
 
 resource "azurerm_storage_container" "containers" {
-  for_each = var.storage.containers != null ? var.storage.containers : {}
+  for_each              = var.storage.containers != null ? var.storage.containers : {}
   name                  = lower(each.key)
   storage_account_id    = azurerm_storage_account.recording.id
   container_access_type = "private"
